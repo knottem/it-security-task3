@@ -1,0 +1,8 @@
+1. skicka tillbaks vad som gått fel till den som försöker kontakta under "trace"
+2. Loggas decodade användarnamn och lösenord i authService
+3. data.sql ligger öppet så vem som helst kan se all data.
+4. application.properties bör inte ha server.error.include-message=always
+                                      server.error.include-stacktrace=always
+5. Använda admin som username, och ha både admin och lösenordet stående i kod
+6. Vem som helst kan använda /students/passwords och se allas username och password.
+7. Samma med /students/health och det skrivs även ut i consolen så det loggas.
