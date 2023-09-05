@@ -5,21 +5,16 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.data.*;
 import com.example.demo.repository.*;
-import com.example.demo.service.AuthService;
 
 @RestController
 @RequestMapping("/api")
 public class ApiController {
-
-    @Autowired
-    private AuthService authService;
 
     @Autowired
     private CustomStudentRepository customStudentRepository;
@@ -39,13 +34,8 @@ public class ApiController {
     }
 
     @GetMapping("/search/pii")
-    public List<Map<String, Object>> getStudentByStudentId(@RequestHeader(value = "Authorization") String authHeader,
-            @RequestParam String studentId) throws Exception {
-        if (authService.authenticate(authHeader)) {
-            return piiRepository.getPII(studentId);
-        }
-        throw new Exception("Not authenticated");
-
+    public List<Map<String, Object>> getStudentByStudentId(@RequestParam String studentId) {
+        return piiRepository.getPII(studentId);
     }
 
     // Test Case 2: Show Course List

@@ -17,13 +17,13 @@ public class PiiRepositoryCustomImpl implements PiiRepository {
     @Autowired
     private EntityManager entityManager;
 
-    // what about 1 or 1 = 1 --
     public List<Map<String, Object>> getPII(String studentId) {
-        String sql = "SELECT * FROM pii WHERE student_id = " + studentId;
+        String sql = "SELECT * FROM pii WHERE student_id = :studentId";
         List<Map<String, Object>> results = new ArrayList<>();
 
-        // Run the query
+        // Run the query using a parameterized query to prevent SQL injection
         Query query = entityManager.createNativeQuery(sql);
+        query.setParameter("studentId", studentId);
         List<Object[]> rows = query.getResultList();
 
         // Map rows to your objects (if needed)

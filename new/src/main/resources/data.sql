@@ -4,9 +4,9 @@ INSERT INTO Student (student_id, name, gender) VALUES (2, 'John', 'Male');
 INSERT INTO Student (student_id, name, gender) VALUES (3, 'Alex', 'Other');
 
 -- Insert test data into Auth table
-INSERT INTO Auth (student_id, username, password) VALUES (1, 'anna123', 'password1');
-INSERT INTO Auth (student_id, username, password) VALUES (2, 'john123', 'password2');
-INSERT INTO Auth (student_id, username, password) VALUES (3, 'alex123', 'password3');
+INSERT INTO Auth (student_id, username, password) VALUES (1, 'anna123', '$2a$10$HbPS1c6ypMViVeai4ZIiTeJ/We25TER51aCKd6ND26waqv/dQ0fdO');
+INSERT INTO Auth (student_id, username, password) VALUES (2, 'john123', '$2a$10$DcCixjH7VhiteGKmSXGGwu8Fx6CJLHZ5F/moTaIzYEJogytERoL7a');
+INSERT INTO Auth (student_id, username, password) VALUES (3, 'alex123', '$2a$10$dxHhhjtdjQTWNxXRQtlXFekuTJPw/F.m/fb722YvnnV3BC2WsQw5m');
 
 -- Insert test data into Pii table
 INSERT INTO Pii (pii_id, student_id, personnummer, phone_number, biometric_data) VALUES (1, 1, '860101-0101', '070-1234567', NULL);
