@@ -6,3 +6,5 @@
 5. Använda admin som username, och ha både admin och lösenordet stående i kod
 6. Vem som helst kan använda /students/passwords och se allas username och password.
 7. Samma med /students/health och det skrivs även ut i consolen så det loggas.
+8. passwords i auth table paras som plaintext
+9. både admin och vanliga users har samma rättigheter
