@@ -56,18 +56,4 @@ public class ApiController {
     public List<Course> searchCourse(@RequestParam String courseName) {
         return courseRepository.findByCourseName(courseName);
     }
-
-    // Test Case: List all students with health data
-    @GetMapping("/students/health")
-    public List<StudentWithHealthRecord> getAllStudentsWithHealthData() {
-        List<StudentWithHealthRecord> data = customStudentRepository.findAllStudentsWithHealthRecord();
-        System.out.println(data);
-        return data;
-    }
-
-    // Test Case: List all student passwords
-    @GetMapping("/students/passwords")
-    public List<Auth> getAllStudentPasswords() {
-        return authRepository.findAll();
-    }
 }
