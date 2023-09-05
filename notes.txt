@@ -13,3 +13,8 @@
 12. AuthService gör att man kan komma åt vem som helst pii om man kan något inloggning - både admin och users har samma rättigheter
 13. Göra om HealthRecord så den bara visar matallergier t.ex. för att undvika GDPR problem
 14. passwords sparas i AuthService som plaintext
+
+
+
+
+15. build.gradle har en gammal och sårbar dependency - FIXAT

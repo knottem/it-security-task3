@@ -9,6 +9,7 @@ import com.example.demo.data.Auth;
 import com.example.demo.repository.AuthRepository;
 
 import java.util.Base64;
+import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -35,10 +36,10 @@ public class AuthService {
 
             }
 
-            Auth auth = authRepository.findByUsername(username);
-            logger.debug("Jämför med lösenord: {}", auth.getPassword());
+            Optional<Auth> auth = authRepository.findByUsername(username);
+            logger.debug("Jämför med lösenord: {}", auth.get().getPassword());
 
-            if (auth != null && auth.getPassword().equals(password)) {
+            if (auth != null && auth.get().getPassword().equals(password)) {
                 return true;
             }
         }
