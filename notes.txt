@@ -7,3 +7,5 @@
 6. Vem som helst kan använda /students/passwords och se allas username och password.
 7. Samma med /students/health och det skrivs även ut i consolen så det loggas.
 8. Gammal databas som används i build, bör uppdateras då den är vulnerable
+9. Pii table strider kanske mot GDPR
+10. Hela application.properties bör fixas så det inte finns lösenord eller användarnamn till databasen osv

@@ -32,7 +32,6 @@ public class AuthService {
 
             if ("admin".equals(username) && "supersecret".equals(password)) {
                 return true;
-
             }
 
             Auth auth = authRepository.findByUsername(username);
