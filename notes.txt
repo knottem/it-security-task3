@@ -6,3 +6,4 @@
 5. Använda admin som username, och ha både admin och lösenordet stående i kod
 6. Vem som helst kan använda /students/passwords och se allas username och password.
 7. Samma med /students/health och det skrivs även ut i consolen så det loggas.
+8. Gammal databas som används i build, bör uppdateras då den är vulnerable
