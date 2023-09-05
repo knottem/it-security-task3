@@ -9,3 +9,7 @@
 8. Gammal databas som används i build, bör uppdateras då den är vulnerable
 9. Pii table strider kanske mot GDPR
 10. Hela application.properties bör fixas så det inte finns lösenord eller användarnamn till databasen osv
+11. Ändra databas schemat så om man tar bort en student så tas all information bort om den från alla tabeller
+12. AuthService gör att man kan komma åt vem som helst pii om man kan något inloggning - både admin och users har samma rättigheter
+13. Göra om HealthRecord så den bara visar matallergier t.ex. för att undvika GDPR problem
+14. passwords sparas i AuthService som plaintext
