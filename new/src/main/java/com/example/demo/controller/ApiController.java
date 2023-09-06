@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +16,9 @@ import com.example.demo.repository.*;
 public class ApiController {
 
     @Autowired
-    private CustomStudentRepository customStudentRepository;
-    @Autowired
     private StudentRepository studentRepository;
     @Autowired
     private CourseRepository courseRepository;
-    @Autowired
-    private AuthRepository authRepository;
     @Autowired
     private PiiRepository piiRepository;
 
@@ -34,8 +29,8 @@ public class ApiController {
     }
 
     @GetMapping("/search/pii")
-    public List<Map<String, Object>> getStudentByStudentId(@RequestParam String studentId) {
-        return piiRepository.getPII(studentId);
+    public List<Pii> getStudentByStudentId(@RequestParam String studentId) {
+        return piiRepository.findByStudentId(Integer.parseInt(studentId));
     }
 
     // Test Case 2: Show Course List

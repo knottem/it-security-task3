@@ -34,14 +34,27 @@ public class WebSecurity {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
+    @Bean
+    public CustomAccessDeniedHandler customAccessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
+    }
+
     //Setting up security for the endpoints.
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         //Setting roles for endpoints, nothing should be accessible without a role.
+        //Order matters, the first match will be used.
         http.authorizeHttpRequests(r -> r
+                .requestMatchers("/error").permitAll()
+                .requestMatchers("/api/search/pii").hasRole("ADMIN")
                 .requestMatchers("/api/search/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/api/**").hasRole("ADMIN"));
+
+        //Setting up logger for unauthorized access attempts.
+        http.exceptionHandling(e -> e
+                .accessDeniedHandler(customAccessDeniedHandler())
+        );
 
         http.httpBasic(withDefaults());
 

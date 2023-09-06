@@ -10,4 +10,5 @@ import com.example.demo.data.*;
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
     List<Student> findByName(String name);
+
 }
