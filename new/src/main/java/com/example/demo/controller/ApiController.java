@@ -1,9 +1,14 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,10 +31,20 @@ public class ApiController {
     private GradesRepository gradeRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private AuthRepository authRepository;
 
     // Test Case 1: Data Access - Student
+    // Added some code to the method below to fix the vulnerability. Every student has a unique ID,
+    // so we can use that to get the student's information from the login credentials.
+    // auth == null should only happen if the user is admin, so we can return an empty StudentInfo object in that case.
     @GetMapping("/student/fullinfo")
-    public ResponseEntity<StudentInfo> getFullStudentInfo(@RequestParam Integer studentId) {
+    public ResponseEntity<StudentInfo> getFullStudentInfo(Authentication authentication) {
+        Auth auth = authRepository.findByUsername(((UserDetails) authentication.getPrincipal()).getUsername()).orElse(null);
+        if (auth == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(StudentInfo.builder().build());
+        }
+        int studentId = auth.getStudentId();
         return ResponseEntity.ok(StudentInfo.builder()
                 .student(studentRepository.findById(studentId).orElse(null))
                 .pii(piiRepository.findByStudentId(studentId).stream().findFirst().orElse(null))
@@ -42,6 +57,7 @@ public class ApiController {
         return studentRepository.findAll();
     }
 
+    // Only admin can access this endpoint since it contains PII, which is sensitive information.
     @GetMapping("/search/pii")
     public List<Pii> getStudentByStudentId(@RequestParam String studentId) {
         return piiRepository.findByStudentId(Integer.parseInt(studentId));
