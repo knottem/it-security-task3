@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,8 +22,21 @@ public class ApiController {
     private CourseRepository courseRepository;
     @Autowired
     private PiiRepository piiRepository;
+    @Autowired
+    private GradesRepository gradeRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
 
     // Test Case 1: Data Access - Student
+    @GetMapping("/student/fullinfo")
+    public ResponseEntity<StudentInfo> getFullStudentInfo(@RequestParam Integer studentId) {
+        return ResponseEntity.ok(StudentInfo.builder()
+                .student(studentRepository.findById(studentId).orElse(null))
+                .pii(piiRepository.findByStudentId(studentId).stream().findFirst().orElse(null))
+                .grades(gradeRepository.findByStudentId(studentId))
+                .activities(activityRepository.findByStudentId(studentId))
+                .build());
+    }
     @GetMapping("/students")
     public List<Student> listStudents() {
         return studentRepository.findAll();
@@ -43,7 +57,6 @@ public class ApiController {
     @GetMapping("/search/student")
     public List<Student> searchStudent(@RequestParam String name) {
         return studentRepository.findByName(name);
-
     }
 
     // Test Case 4: Search - Course

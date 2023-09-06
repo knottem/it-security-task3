@@ -9,4 +9,5 @@ import com.example.demo.data.*;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
     List<Course> findByCourseName(String courseName);
+
 }
