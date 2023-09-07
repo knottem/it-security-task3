@@ -48,6 +48,7 @@ public class WebSecurity {
         http.authorizeHttpRequests(r -> r
                 .requestMatchers("/error").permitAll()
                 .requestMatchers("/api/search/pii").hasRole("ADMIN")
+                .requestMatchers("/api/courses").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/api/search/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/api/student/fullinfo").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/api/**").hasRole("ADMIN"));
