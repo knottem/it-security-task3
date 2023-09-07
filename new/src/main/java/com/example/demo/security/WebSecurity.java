@@ -58,6 +58,7 @@ public class WebSecurity {
                 .accessDeniedHandler(customAccessDeniedHandler())
         );
 
+        //Using basic auth just for simplicity for the demo.
         http.httpBasic(withDefaults());
 
         return http.build();
