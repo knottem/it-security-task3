@@ -19,18 +19,26 @@ import com.example.demo.repository.*;
 @RequestMapping("/api")
 public class ApiController {
 
-    @Autowired
-    private StudentRepository studentRepository;
-    @Autowired
-    private CourseRepository courseRepository;
-    @Autowired
-    private PiiRepository piiRepository;
-    @Autowired
-    private GradesRepository gradeRepository;
-    @Autowired
-    private ActivityRepository activityRepository;
-    @Autowired
-    private AuthRepository authRepository;
+    private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
+    private final PiiRepository piiRepository;
+    private final GradesRepository gradeRepository;
+    private final ActivityRepository activityRepository;
+    private final AuthRepository authRepository;
+
+    public ApiController(AuthRepository authRepository,
+                         StudentRepository studentRepository,
+                         CourseRepository courseRepository,
+                         PiiRepository piiRepository,
+                         GradesRepository gradeRepository,
+                         ActivityRepository activityRepository) {
+        this.authRepository = authRepository;
+        this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
+        this.piiRepository = piiRepository;
+        this.gradeRepository = gradeRepository;
+        this.activityRepository = activityRepository;
+    }
 
     // Test Case 1: Data Access - Student
     // Added some code to the method below to fix the vulnerability. Every student has a unique ID,
@@ -50,6 +58,7 @@ public class ApiController {
                 .activities(activityRepository.findByStudentId(studentId))
                 .build());
     }
+
     @GetMapping("/students")
     public List<Student> listStudents() {
         return studentRepository.findAll();
